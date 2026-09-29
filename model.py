@@ -61,8 +61,15 @@ def stack_padded_sequences_to_batch(padded_sequences):
     # TODO: stack padded id sequences into a (B, L) torch.long tensor
     return torch.LongTensor(padded_sequences)
 
-# Step 7 - scale_embeddings_by_sqrt_d_model (not yet solved)
-# TODO: implement
+# Step 7 - scale_embeddings_by_sqrt_d_model
+import math
+import torch
+
+def scale_embeddings_by_sqrt_d_model(embeddings, d_model):
+    """Scale a token embedding tensor by sqrt(d_model)."""
+    # TODO: rescale embeddings by sqrt(d_model) as in the original Transformer paper
+    tenseur = embeddings * math.sqrt(d_model)
+    return tenseur
 
 # Step 8 - compute_positional_div_term (not yet solved)
 # TODO: implement
@@ -242,6 +249,9 @@ def stack_padded_sequences_to_batch(padded_sequences):
 # TODO: implement
 
 # Step 67 - apply_adam_bias_correction (not yet solved)
+# TODO: implement
+
+# Step 68 - compute_adam_parameter_update (not yet solved)
 # TODO: implement
 
 # Step 69 - apply_adam_step_to_all_parameters (not yet solved)
