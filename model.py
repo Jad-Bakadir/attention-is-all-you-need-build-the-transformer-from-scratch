@@ -89,8 +89,17 @@ def build_position_index_column(max_len):
     # TODO: build a column vector of position indices from 0 to max_len-1
     return torch.arange(max_len).reshape(max_len,1).to(torch.float32)
 
-# Step 10 - fill_even_indices_with_sin (not yet solved)
-# TODO: implement
+# Step 10 - fill_even_indices_with_sin
+import torch
+
+def fill_even_indices_with_sin(pe, position, div_term):
+    """Fill even feature indices of pe with sin(position * div_term)."""
+    # TODO: write sin(position * div_term) into the even-indexed columns of pe and return it
+    tenseur = pe
+    for i in range(pe.shape[0]):
+        for j in range(0,pe.shape[1],2):
+            tenseur[i,j] = math.sin(position[i,0]*div_term[j//2])
+    return tenseur
 
 # Step 11 - fill_odd_indices_with_cos (not yet solved)
 # TODO: implement
