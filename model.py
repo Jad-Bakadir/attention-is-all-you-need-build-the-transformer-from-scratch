@@ -101,8 +101,16 @@ def fill_even_indices_with_sin(pe, position, div_term):
             tenseur[i,j] = math.sin(position[i,0]*div_term[j//2])
     return tenseur
 
-# Step 11 - fill_odd_indices_with_cos (not yet solved)
-# TODO: implement
+# Step 11 - fill_odd_indices_with_cos
+import torch
+
+def fill_odd_indices_with_cos(pe, position, div_term):
+    # TODO: fill the odd-indexed columns of pe with cos(position * div_term)
+    tenseur = pe
+    for i in range(pe.shape[0]):
+        for j in range(pe.shape[1]//2):
+            tenseur[i,(2*j)+1] = math.cos(position[i,0]*div_term[j])
+    return tenseur
 
 # Step 12 - build_sinusoidal_positional_encoding (not yet solved)
 # TODO: implement
