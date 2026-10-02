@@ -132,17 +132,44 @@ def add_positional_encoding_to_embeddings(embedded_batch, positional_encoding):
     # TODO: add the first L rows of positional_encoding to embedded_batch and return the sum.
     return embedded_batch + positional_encoding[:embedded_batch.shape[1],:]
 
-# Step 14 - build_padding_mask (not yet solved)
-# TODO: implement
+# Step 14 - build_padding_mask
+import torch
 
-# Step 15 - build_causal_mask (not yet solved)
-# TODO: implement
+def build_padding_mask(token_ids, pad_id):
+    """Return a (B, 1, 1, L) bool mask: True where token_ids != pad_id."""
+    # TODO: build a boolean mask marking non-pad positions, shaped for broadcasting against attention scores
+    B,L =token_ids.shape[0],token_ids.shape[1]
+    res = torch.tensor([ [ [ [True for l in range(L)] ] ] for b in range(B) ])
+    for b in range(B):
+        for l in range(L):
+            if token_ids[b,l] == pad_id : res[b,0,0,l] = False
+    return res
 
-# Step 16 - combine_padding_and_causal_masks (not yet solved)
-# TODO: implement
+# Step 15 - build_causal_mask
+import torch
 
-# Step 17 - compute_raw_attention_scores (not yet solved)
-# TODO: implement
+def build_causal_mask(seq_len):
+    """Return a (1, 1, seq_len, seq_len) bool mask, True on and below diagonal."""
+    # TODO: build a lower-triangular boolean causal mask of shape (1, 1, seq_len, seq_len)
+    res = torch.ones(seq_len,seq_len)
+    res = torch.tril(res).bool()
+    res = res.view(1,1,seq_len,seq_len)
+    return res
+
+# Step 16 - combine_padding_and_causal_masks
+import torch
+
+def combine_padding_and_causal_masks(padding_mask, causal_mask):
+    # TODO: combine a (B,1,1,L) padding mask with a (1,1,L,L) causal mask into (B,1,L,L).
+    return padding_mask & causal_mask
+
+# Step 17 - compute_raw_attention_scores
+import torch
+
+def compute_raw_attention_scores(query, key):
+    """Compute raw attention scores Q @ K^T over the last two dimensions."""
+    # TODO: matmul query with the transpose of key over the last two axes
+    return torch.matmul(query,key.transpose(-2,-1))
 
 # Step 18 - scale_attention_scores (not yet solved)
 # TODO: implement
